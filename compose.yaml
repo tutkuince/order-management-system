@@ -1,9 +1,14 @@
 services:
   postgres:
-    image: 'postgres:latest'
+    image: 'postgres:16.2'
     environment:
-      - 'POSTGRES_DB=mydatabase'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      - 'POSTGRES_DB=oms'
+      - 'POSTGRES_PASSWORD=s3cr3t'
+      - 'POSTGRES_USER=admin'
     ports:
-      - '5432'
+      - '5432:5432'
+    volumes:
+      - /c/tmp/oms:/var/lib/postgresql/data
+
+volumes:
+  postgres:
