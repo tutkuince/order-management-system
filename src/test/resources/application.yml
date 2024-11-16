@@ -1,0 +1,13 @@
+spring:
+#  datasource:
+#    username: ${OMS_USERNAME}
+#    password: ${OMS_PASSWORD}
+#    url: jdbc:postgresql://localhost:5432/oms
+
+  docker:
+    compose:
+      skip:
+        in-tests: false
+logging:
+  level:
+    org.springframework.modulith: DEBUG
