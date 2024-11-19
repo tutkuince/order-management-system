@@ -2,6 +2,7 @@ package com.incetutku.ordermanagementsystem.order;
 
 import com.incetutku.ordermanagementsystem.order.type.Status;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,6 +13,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @ToString
+@Builder
 @Entity
 @Table(name = "orders")
 public class Order {
