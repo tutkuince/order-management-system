@@ -2,12 +2,15 @@ package com.incetutku.ordermanagementsystem.order;
 
 import com.incetutku.ordermanagementsystem.order.dto.InventoryRequestDto;
 import com.incetutku.ordermanagementsystem.order.dto.OrderDto;
+import com.incetutku.ordermanagementsystem.order.dto.OrderPaymentDto;
 import com.incetutku.ordermanagementsystem.order.dto.OrderResponseDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.modulith.test.ApplicationModuleTest;
+import org.springframework.modulith.test.Scenario;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,6 +38,13 @@ class OrderIntegrationTest {
 
         assertThat(order.message()).isEqualTo("Order Currently Processed");
         assertThat(order.statusCode()).isEqualTo(102);
+    }
 
+    @Test
+    void publishOrderPaymentDto(Scenario scenario) {
+        scenario.publish(new OrderPaymentDto(UUID.randomUUID().toString(), 5000L))
+                .andWaitForEventOfType(OrderPaymentDto.class)
+                .matching(event -> event.amount() == 5000L)
+                .toArriveAndVerify(ev -> System.out.println(ev.amount()));
     }
 }
