@@ -4,6 +4,7 @@ import com.incetutku.ordermanagementsystem.inventory.exposed.InventoryDto;
 import com.incetutku.ordermanagementsystem.inventory.exposed.InventoryService;
 import com.incetutku.ordermanagementsystem.order.dto.InventoryRequestDto;
 import com.incetutku.ordermanagementsystem.order.dto.OrderDto;
+import com.incetutku.ordermanagementsystem.order.dto.OrderPaymentDto;
 import com.incetutku.ordermanagementsystem.order.dto.OrderResponseDto;
 import com.incetutku.ordermanagementsystem.order.type.Status;
 import lombok.extern.slf4j.Slf4j;
@@ -21,11 +22,17 @@ public class OrderService {
     private final InventoryService inventoryService;
     private final OrderRepository orderRepository;
     private final OrderInventoryRepository orderInventoryRepository;
+    private final OrderEventService orderEventService;
 
-    public OrderService(InventoryService inventoryService, OrderRepository orderRepository, OrderInventoryRepository orderInventoryRepository) {
+    public OrderService(
+            InventoryService inventoryService,
+            OrderRepository orderRepository,
+            OrderInventoryRepository orderInventoryRepository,
+            OrderEventService orderEventService) {
         this.inventoryService = inventoryService;
         this.orderRepository = orderRepository;
         this.orderInventoryRepository = orderInventoryRepository;
+        this.orderEventService = orderEventService;
     }
 
     public OrderResponseDto createOrder(OrderDto orderDto) {
@@ -44,6 +51,9 @@ public class OrderService {
 
         // Build and persist the OrderInventory
         buildAndPersistOrderInventories(orderDto, inventoryDtoList, savedOrder.getId(), amount);
+
+        OrderPaymentDto orderPaymentDto = new OrderPaymentDto(savedOrder.getOrderIdentifier(), amount.get());
+        orderEventService.completeOrder(orderPaymentDto);
 
         return new OrderResponseDto("Order Currently Processed", 102);
     }
