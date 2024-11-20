@@ -17,7 +17,7 @@ public class CustomEventPublication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuid;
+    private UUID id;
     private Timestamp completionDate;
     private String listenerId;
     private String eventType;
