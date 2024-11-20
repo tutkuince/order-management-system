@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CustomEventPublicationRepository extends CrudRepository<CustomEventPublication, UUID> {
-    List<CustomEventPublication> findCustomEventPublicationByPublicationDateNotNullAndCompletionDateIsNull();
-    List<CustomEventPublication> findCustomEventPublicationByPublicationDateNotNullAndCompletionDateIsNotNull();
+    List<CustomEventPublication> findCustomEventPublicationsByPublicationDateNotNullAndCompletionDateIsNull();
+    List<CustomEventPublication> findCustomEventPublicationsByPublicationDateNotNullAndCompletionDateIsNotNull();
 }

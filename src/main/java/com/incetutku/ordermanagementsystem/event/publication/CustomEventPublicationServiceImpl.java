@@ -15,11 +15,11 @@ public class CustomEventPublicationServiceImpl implements CustomEventPublication
 
     @Override
     public List<CustomEventPublication> getUncompletedEventPublication() {
-        return customEventPublicationRepository.findCustomEventPublicationByPublicationDateNotNullAndCompletionDateIsNull();
+        return customEventPublicationRepository.findCustomEventPublicationsByPublicationDateNotNullAndCompletionDateIsNull();
     }
 
     @Override
     public List<CustomEventPublication> getCompletedEventPublication() {
-        return customEventPublicationRepository.findCustomEventPublicationByPublicationDateNotNullAndCompletionDateIsNotNull();
+        return customEventPublicationRepository.findCustomEventPublicationsByPublicationDateNotNullAndCompletionDateIsNotNull();
     }
 }
