@@ -1,5 +1,6 @@
 package com.incetutku.ordermanagementsystem.order;
 
+import com.incetutku.ordermanagementsystem.order.dto.EmailDto;
 import com.incetutku.ordermanagementsystem.order.dto.OrderPaymentDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -17,8 +18,11 @@ public class OrderEventService {
     }
 
     @Transactional
-    public void completeOrder(final OrderPaymentDto orderPaymentDto) {
+    public void completeOrder(final OrderPaymentDto orderPaymentDto, EmailDto emailDto) {
         log.info("Completing order payment with details{}", orderPaymentDto);
         eventPublisher.publishEvent(orderPaymentDto);
+
+        log.info("Sending email for order {}", emailDto);
+        eventPublisher.publishEvent(emailDto);
     }
 }

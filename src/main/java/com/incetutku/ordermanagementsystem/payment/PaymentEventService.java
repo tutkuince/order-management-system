@@ -19,6 +19,12 @@ public class PaymentEventService {
     @ApplicationModuleListener
     @Async
     void on(final OrderPaymentDto orderPaymentDto) {
-        System.out.println("Listener received in listener " + orderPaymentDto);
+        log.info("Listener received in listener {}", orderPaymentDto);
+
+        Payment payment = new Payment();
+        payment.setOrderId(payment.getOrderId());
+        payment.setAmount(payment.getAmount());
+        paymentRepository.save(payment);
+
     }
 }

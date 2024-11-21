@@ -2,10 +2,7 @@ package com.incetutku.ordermanagementsystem.order;
 
 import com.incetutku.ordermanagementsystem.inventory.exposed.InventoryDto;
 import com.incetutku.ordermanagementsystem.inventory.exposed.InventoryService;
-import com.incetutku.ordermanagementsystem.order.dto.InventoryRequestDto;
-import com.incetutku.ordermanagementsystem.order.dto.OrderDto;
-import com.incetutku.ordermanagementsystem.order.dto.OrderPaymentDto;
-import com.incetutku.ordermanagementsystem.order.dto.OrderResponseDto;
+import com.incetutku.ordermanagementsystem.order.dto.*;
 import com.incetutku.ordermanagementsystem.order.type.Status;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -53,7 +50,10 @@ public class OrderService {
         buildAndPersistOrderInventories(orderDto, inventoryDtoList, savedOrder.getId(), amount);
 
         OrderPaymentDto orderPaymentDto = new OrderPaymentDto(savedOrder.getOrderIdentifier(), amount.get());
-        orderEventService.completeOrder(orderPaymentDto);
+
+        EmailDto emailDto = new EmailDto(orderDto.customerEmail(), orderDto.customerName(), savedOrder.getOrderIdentifier(), orderPaymentDto.amount(), false);
+
+        orderEventService.completeOrder(orderPaymentDto, emailDto);
 
         return new OrderResponseDto("Order Currently Processed", 102);
     }
