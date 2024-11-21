@@ -1,4 +1,4 @@
 @org.springframework.modulith.ApplicationModule(
-        allowedDependencies = {"inventory::exposed"}
+        allowedDependencies = {"inventory::exposed", "event::action"}
 )
 package com.incetutku.ordermanagementsystem.order;

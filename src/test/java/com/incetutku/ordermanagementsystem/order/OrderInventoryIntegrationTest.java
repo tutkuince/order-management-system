@@ -3,7 +3,7 @@ package com.incetutku.ordermanagementsystem.order;
 import org.junit.jupiter.api.Test;
 import org.springframework.modulith.test.ApplicationModuleTest;
 
-@ApplicationModuleTest
+@ApplicationModuleTest(mode = ApplicationModuleTest.BootstrapMode.DIRECT_DEPENDENCIES)
 class OrderInventoryIntegrationTest {
 
     @Test
