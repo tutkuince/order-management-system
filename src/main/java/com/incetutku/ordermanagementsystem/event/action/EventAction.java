@@ -10,7 +10,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(indexes = {
-
+        @Index(name = "actionIdx", columnList = "action")
 })
 public class EventAction {
 
