@@ -1,5 +1,7 @@
 package com.incetutku.ordermanagementsystem.order;
 
+import com.incetutku.ordermanagementsystem.order.dto.CompleteOrder;
+import com.incetutku.ordermanagementsystem.order.dto.CompleteOrderResponse;
 import com.incetutku.ordermanagementsystem.order.dto.OrderDto;
 import com.incetutku.ordermanagementsystem.order.dto.OrderResponseDto;
 import org.springframework.http.HttpStatus;
@@ -21,5 +23,10 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<OrderResponseDto> createOrder(@RequestBody OrderDto orderDto) {
         return new ResponseEntity<>(orderService.createOrder(orderDto), HttpStatus.CREATED);
+    }
+
+    @PostMapping(path = "/complete")
+    public ResponseEntity<CompleteOrderResponse> completeOrder(@RequestBody CompleteOrder completeOrder) {
+        return ResponseEntity.ok(orderService.completePayment(completeOrder));
     }
 }

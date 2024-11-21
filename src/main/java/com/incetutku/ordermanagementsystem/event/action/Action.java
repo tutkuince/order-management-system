@@ -3,7 +3,7 @@ package com.incetutku.ordermanagementsystem.event.action;
 import java.util.Arrays;
 
 public enum Action {
-    PAYMENT("P"), EMAIL("E");
+    PAYMENT("P"), EMAIL("E"), COMPLETE_PAYMENT("C");
 
     private String code;
 

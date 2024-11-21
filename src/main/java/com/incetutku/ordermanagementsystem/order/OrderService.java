@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -56,6 +57,20 @@ public class OrderService {
         orderEventService.completeOrder(orderPaymentDto, emailDto);
 
         return new OrderResponseDto("Order Currently Processed", 102);
+    }
+
+    public CompleteOrderResponse completePayment(CompleteOrder completeOrder) {
+        Optional<Order> optionalOrder = orderRepository.findOrderByOrderIdentifier(completeOrder.orderIdentifier());
+        if (optionalOrder.isEmpty()) {
+            throw new RuntimeException("Order not found");
+        }
+        Order order = optionalOrder.get();
+        final long amount = orderInventoryRepository.orderIdAmount(order.getId());
+        EmailDto emailDto = new EmailDto(order.getCustomerEmail(), order.getCustomerName(), order.getOrderIdentifier(), amount, true);
+
+        orderEventService.completePayment(completeOrder, emailDto);
+
+        return new CompleteOrderResponse(true);
     }
 
     private void buildAndPersistOrderInventories(OrderDto orderDto, List<InventoryDto> inventoryDtoList, long orderId, AtomicLong amount) {

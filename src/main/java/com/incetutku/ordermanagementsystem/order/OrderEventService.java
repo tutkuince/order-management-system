@@ -1,5 +1,6 @@
 package com.incetutku.ordermanagementsystem.order;
 
+import com.incetutku.ordermanagementsystem.order.dto.CompleteOrder;
 import com.incetutku.ordermanagementsystem.order.dto.EmailDto;
 import com.incetutku.ordermanagementsystem.order.dto.OrderPaymentDto;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,15 @@ public class OrderEventService {
         eventPublisher.publishEvent(orderPaymentDto);
 
         log.info("Sending email for order {}", emailDto);
+        eventPublisher.publishEvent(emailDto);
+    }
+
+    @Transactional
+    public void completePayment(CompleteOrder completeOrder, EmailDto emailDto) {
+        log.info("Attempting to complete payment {}", completeOrder);
+        eventPublisher.publishEvent(completeOrder);
+
+        log.info("Completed payment Email {}", emailDto);
         eventPublisher.publishEvent(emailDto);
     }
 }
