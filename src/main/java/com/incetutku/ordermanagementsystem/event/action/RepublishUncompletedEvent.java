@@ -11,7 +11,6 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
@@ -61,7 +60,7 @@ public class RepublishUncompletedEvent {
         actions.forEach(this::republish);
     }
 
-    @Scheduled(fixedRate = 10L, timeUnit = TimeUnit.SECONDS)
+    @Scheduled(cron = "0 0 0 * * *")
     public void republish() {
         log.info("Republishing uncompleted events");
         Arrays.stream(Action.values()).forEach(this::republish);
