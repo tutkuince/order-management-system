@@ -4,6 +4,7 @@ import com.incetutku.ordermanagementsystem.order.dto.CompleteOrder;
 import com.incetutku.ordermanagementsystem.order.dto.CompleteOrderResponse;
 import com.incetutku.ordermanagementsystem.order.dto.OrderDto;
 import com.incetutku.ordermanagementsystem.order.dto.OrderResponseDto;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderResponseDto> createOrder(@RequestBody OrderDto orderDto) {
+    public ResponseEntity<OrderResponseDto> createOrder(@RequestBody @Valid OrderDto orderDto) {
         return new ResponseEntity<>(orderService.createOrder(orderDto), HttpStatus.CREATED);
     }
 

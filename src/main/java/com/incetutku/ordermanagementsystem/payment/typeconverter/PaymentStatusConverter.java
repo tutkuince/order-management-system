@@ -1,5 +1,6 @@
 package com.incetutku.ordermanagementsystem.payment.typeconverter;
 
+import com.incetutku.ordermanagementsystem.exception.ModulithException;
 import com.incetutku.ordermanagementsystem.payment.type.PaymentStatus;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
@@ -13,7 +14,7 @@ public class PaymentStatusConverter implements AttributeConverter<PaymentStatus,
     @Override
     public String convertToDatabaseColumn(PaymentStatus paymentStatus) {
         if (Objects.isNull(paymentStatus)) {
-            throw new IllegalArgumentException("Payment Status can not be null");
+            throw new ModulithException("Payment Status can not be null");
         }
         return paymentStatus.getCode();
     }
@@ -21,7 +22,7 @@ public class PaymentStatusConverter implements AttributeConverter<PaymentStatus,
     @Override
     public PaymentStatus convertToEntityAttribute(String code) {
         if (Objects.isNull(code)) {
-            throw new IllegalArgumentException("Code can not be null");
+            throw new ModulithException("Code can not be null");
         }
         return Arrays.stream(PaymentStatus.values())
                 .filter(s -> s.getCode().equalsIgnoreCase(code))

@@ -1,5 +1,6 @@
 package com.incetutku.ordermanagementsystem.event.action;
 
+import com.incetutku.ordermanagementsystem.exception.ModulithException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.modulith.events.CompletedEventPublications;
@@ -50,7 +51,7 @@ public class RepublishUncompletedEvent {
                 incompleteEventPublications.resubmitIncompletePublications(ep -> ep.getEvent().getClass() == actionClass);
                 completedEventPublications.deletePublicationsOlderThan(Duration.ofHours(environment.getProperty("delete.event.duration", Long.class, 100L)));
             } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
+                throw new ModulithException(e.getMessage());
             }
 
         }

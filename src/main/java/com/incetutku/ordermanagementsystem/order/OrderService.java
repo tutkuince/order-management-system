@@ -1,5 +1,6 @@
 package com.incetutku.ordermanagementsystem.order;
 
+import com.incetutku.ordermanagementsystem.exception.ModulithException;
 import com.incetutku.ordermanagementsystem.inventory.exposed.InventoryDto;
 import com.incetutku.ordermanagementsystem.inventory.exposed.InventoryService;
 import com.incetutku.ordermanagementsystem.order.dto.*;
@@ -62,7 +63,7 @@ public class OrderService {
     public CompleteOrderResponse completePayment(CompleteOrder completeOrder) {
         Optional<Order> optionalOrder = orderRepository.findOrderByOrderIdentifier(completeOrder.orderIdentifier());
         if (optionalOrder.isEmpty()) {
-            throw new RuntimeException("Order not found");
+            throw new ModulithException("Order with id not found " + completeOrder.orderIdentifier());
         }
         Order order = optionalOrder.get();
         final long amount = orderInventoryRepository.orderIdAmount(order.getId());

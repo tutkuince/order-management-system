@@ -1,5 +1,6 @@
 package com.incetutku.ordermanagementsystem.inventory;
 
+import com.incetutku.ordermanagementsystem.exception.ModulithException;
 import com.incetutku.ordermanagementsystem.inventory.exposed.InventoryDto;
 import com.incetutku.ordermanagementsystem.inventory.exposed.InventoryService;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ class InventoryServiceImpl implements InventoryService {
     public InventoryDto fetchInventoryByName(String name) {
         return inventoryRepository.findInventoryByName(name)
                 .map(InventoryUtil::mapInventoryDto)
-                .orElseThrow(() -> new IllegalArgumentException("Could not find inventory by name: " + name));
+                .orElseThrow(() -> new ModulithException("Could not find inventory by name: " + name));
     }
 
     @Override
