@@ -19,3 +19,9 @@ logging:
   level:
     org.springframework.modulith: DEBUG
     org.springframework.web: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
