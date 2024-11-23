@@ -1,8 +1,9 @@
 spring:
-#  datasource:
-#    username: ${OMS_USERNAME}
-#    password: ${OMS_PASSWORD}
-#    url: jdbc:postgresql://localhost:5432/oms
+  datasource:
+    username: ${OMS_USERNAME}
+    password: ${OMS_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/oms
+    driver-class-name: org.postgresql.Driver
 
   docker:
     compose:

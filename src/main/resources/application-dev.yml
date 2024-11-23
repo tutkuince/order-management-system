@@ -1,4 +1,9 @@
 spring:
+  datasource:
+    username: admin
+    password: s3cr3t
+    url: jdbc:postgresql://localhost:5432/oms
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update

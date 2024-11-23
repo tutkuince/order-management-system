@@ -1,6 +1,16 @@
 spring:
   application:
     name: order-management-system
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: admin
+    password: s3cr3t
+    url: jdbc:postgresql://localhost:5432/oms
 
-  profiles:
-    active: dev
+
+#  profiles:
+#    active: ${SPRING_PROFILES_ACTIVE}
