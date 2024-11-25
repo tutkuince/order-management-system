@@ -14,5 +14,5 @@ COPY ${JAR_FILE} app.jar
 
 # Execute the application
 ENTRYPOINT exec java \
-    -Dspring.profiles.active=$SPRING_PROLE \
+    -Dspring.profiles.active=${SPRING_PROLE} \
     -jar app.jar

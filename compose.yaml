@@ -18,13 +18,22 @@ services:
     container_name: oms
     image: oms:1.0
     ports:
-      - "8080:8080"
+      - "8081:8081"
     environment:
-      - SPRING_PROFILES_ACTIVE=dev
+#      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_PROFILE=docker
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/oms
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=s3cr3t
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - OMS_USERNAME=admin
+      - OMS_PASSWORD=s3cr3t
+      - OMS_HOST=postgres
+      - OMS_DB_NAME=oms
+      - OMS_PORT=5432
+      - SERVER_PORT=8081
+      - DELETE_EVENT_DURATION=5000
+      - ACTUATOR_EXPOSED_ENDPOINTS=health,modulith
 
     depends_on:
       - postgres
