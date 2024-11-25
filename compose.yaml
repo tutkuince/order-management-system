@@ -7,36 +7,34 @@ services:
       - 'POSTGRES_PASSWORD=s3cr3t'
       - 'POSTGRES_USER=admin'
     ports:
-      - '5432:5432'
-    volumes:
-      - /c/tmp/oms:/var/lib/postgresql/data
-    networks:
-      oms-network:
+      - "5432:5432"
 
-  oms-service:
-    container_name: oms-service
+    volumes:
+      - /c/tmp/postgres_modulith:/var/lib/postgresql/data
+    networks:
+      modulith-network:
+
+  oms:
+    container_name: oms
     image: oms:1.0
     ports:
       - "8080:8080"
     environment:
-      SPRING_PROFILES_ACTIVE: "docker"
-      SPRING_PROFILE: "docker"
-      OMS_USERNAME: "admin"
-      OMS_PASSWORD: "s3cr3t"
-      OMS_HOST: "localhost"
-      OMS_PORT: 5432
-      OMS_DB_NAME: "oms"
-      DELETE_EVENT_DURATION: 4000
-      ACTUATOR_EXPOSED_ENDPOINTS: "health, modulith"
-      SERVER_PORT: 8081
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/oms
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=s3cr3t
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
     depends_on:
-        - postgres
+      - postgres
+
     networks:
-      oms-network:
+      modulith-network:
     restart: unless-stopped
 
 volumes:
   postgres:
 networks:
-  oms-network:
+  modulith-network:
     driver: bridge
