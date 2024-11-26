@@ -1,0 +1,5 @@
+name: build push image for deployment
+on:
+  push:
+    branches:
+      - master
