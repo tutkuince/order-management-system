@@ -3,3 +3,12 @@ on:
   push:
     branches:
       - master
+
+jobs:
+  build-section:
+    environment: action
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get Source Code
+        run: echo "Hey! I am printing something."
