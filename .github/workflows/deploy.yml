@@ -12,3 +12,5 @@ jobs:
     steps:
       - name: Get Source Code
         run: echo "Hey! I am printing something."
+      - name: show host environment variable
+        run: echo "${{ env.ACTUATOR_EXPOSED_ENDPOINTS }} "
