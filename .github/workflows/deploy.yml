@@ -9,7 +9,7 @@ jobs:
     environment: action
     runs-on: ubuntu-latest
     env:
-      ACTUATOR_ENDPOINTS: ${{ env.ACTUATOR_EXPOSED_ENDPOINTS }}
+      ACTUATOR_ENDPOINTS: ${{ vars.ACTUATOR_EXPOSED_ENDPOINTS }}
     steps:
       - name: Get Source Code
         run: echo "Hey! I am printing something."
