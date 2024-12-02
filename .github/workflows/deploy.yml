@@ -27,4 +27,10 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: '21'
-          cache: 'maven'
+          cache: maven
+      - name: Output Info
+        run: ls
+      - name: Build with Maven
+        run: mvn clean package -Dspring-boot.run.profiles=${{ vars.SPRING_PROFILE }}
+      - name: List the Files
+        run: ls target/**
