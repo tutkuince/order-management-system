@@ -5,7 +5,7 @@ on:
       - master
 
 jobs:
-  build-section:
+  sample-job-section:
     environment: action
     runs-on: ubuntu-latest
     env:
@@ -15,3 +15,16 @@ jobs:
         run: echo "Hey! I am printing something."
       - name: show host environment variable
         run: echo "actuator endpoint ${{ env.ACTUATOR_ENDPOINTS }}"
+
+  build-job-section:
+    environment: action
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the Code
+        uses: actions/checkout@v4
+      - name: Set Up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: '21'
+          cache: 'maven'
