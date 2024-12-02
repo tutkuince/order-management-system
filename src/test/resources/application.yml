@@ -1,9 +1,15 @@
 spring:
-#  datasource:
-#    username: ${OMS_USERNAME}
-#    password: ${OMS_PASSWORD}
-#    url: jdbc:postgresql://localhost:5432/oms
-#    driver-class-name: org.postgresql.Driver
+  datasource:
+    username: ${OMS_USERNAME:admin}
+    password: ${OMS_PASSWORD:s3cr3t}
+    url: jdbc:postgresql://${OMS_HOST}:${OMS_PORT:5432}/${OMS_DB_NAME}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  sql:
+    init:
+      mode: always
 
   docker:
     compose:
