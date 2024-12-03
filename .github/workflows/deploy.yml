@@ -82,3 +82,11 @@ jobs:
     steps:
       - name: print something
         run: echo " job env "
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: spring-oms-artifact
+
+      - name: Output Downloaded Contents
+        run: ls
