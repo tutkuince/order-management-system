@@ -97,3 +97,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push Image
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/spring-oms:1.0
+          context: .
+          file: ./Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
