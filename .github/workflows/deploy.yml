@@ -27,26 +27,47 @@ jobs:
         env:
           POSTGRES_DB: ${{ vars.OMS_DB_NAME }}
           POSTGRES_USER: ${{ secrets.OMS_USERNAME }}
-          POSTGRES_PASSWORD: ${{ vars.OMS_PASSWORD }}
+          POSTGRES_PASSWORD: ${{ secrets.OMS_PASSWORD }}
         ports:
           - 5432:5432
 
     steps:
       - name: Get the Code
         uses: actions/checkout@v4
+
       - name: Set Up JDK 21
         uses: actions/setup-java@v4
         with:
           distribution: 'corretto'
           java-version: '21'
           cache: maven
+
       - name: Set up Maven
         uses: stCarolas/setup-maven@v5
         with:
           maven-version: 3.8.2
+
+      - name: Run Maven Test
+        env:
+          OMS_USERNAME: ${{ secrets.OMS_USERNAME }}
+          OMS_PASSWORD: ${{ secrets.OMS_PASSWORD }}
+          OMS_HOST: ${{ vars.OMS_HOST }}
+          OMS_PORT: ${{ vars.OMS_PORT }}
+          OMS_DB_NAME: ${{ vars.OMS_DB_NAME }}
+        run: mvn clean test
+
       - name: Output Info
         run: ls && mvn -version & ls /opt
+
       - name: Build with Maven
-        run: mvn clean package -Dspring-boot.run.profiles=${{ vars.SPRING_PROFILE }}
+        run: mvn clean package -DskipTests -Dspring-boot.run.profiles=${{ vars.SPRING_PROFILE }}
+
       - name: List the Files
         run: ls target/**
+
+  push-image-section:
+    needs: [build-job-section]
+    runs-on: ubuntu-latest
+    steps:
+      - name: print something
+        run: echo " job env "
